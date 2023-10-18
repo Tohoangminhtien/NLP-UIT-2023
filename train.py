@@ -15,7 +15,7 @@ import os
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
-parser.add_argument("config", type=str, required=True)
+parser.add_argument("--config", type=str, required=True)
 args = parser.parse_args()
 
 config = get_config(args.config)

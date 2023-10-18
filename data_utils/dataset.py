@@ -30,7 +30,6 @@ class IcheveDataset(Dataset):
         evidence = item["evidence"]
 
         context_tensor, context_sentences = self.vocab.encode_sentence(context, "PARAGRAPH")
-        print(len(context_sentences))
         claim_tensor = self.vocab.encode_sentence(claim, "SENTENCE")
         verdict_tensor = self.vocab.encode_verdict(verdict)
         evidence_tensor = self.vocab.encode_evidence(context, evidence)
