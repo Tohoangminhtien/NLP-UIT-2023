@@ -1,0 +1,6 @@
+annotations
+*.json
+*.pyc
+.cache
+*.pyc
+__pycache__

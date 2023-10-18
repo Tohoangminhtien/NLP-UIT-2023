@@ -1,0 +1,69 @@
+TASK: BaselineTraining
+
+DATASET:
+  TYPE: IcheveDataset
+  BATCH_SIZE: 32
+  WORKERS: 2
+  VOCAB:
+    TYPE: Vocab
+    TOKENIZER: null
+    MIN_FREQ: 5
+    WORD_EMBEDDING: null
+    WORD_EMBEDDING_CACHE: null
+    BOS_TOKEN: <bos>
+    EOS_TOKEN: <eos>
+    PAD_TOKEN: <pad>
+    UNK_TOKEN: <unk>
+    JSON_PATH:
+      TRAIN: annotations/refined-ise-dsc01-train.json
+      DEV: annotations/refined-ise-dsc01-dev.json
+      TEST: null
+  JSON_PATH:
+    TRAIN: annotations/refined-ise-dsc01-train.json
+    DEV: annotations/refined-ise-dsc01-dev.json
+    TEST: null
+
+TRAINING:
+  CHECKPOINT_PATH: saved_models
+  PATIENCE: 5
+  LR: 0.01
+
+MODEL:
+  ARCHITECTURE: GLAICHEVE
+  NAME: glaichieve
+  DEVICE: mps # mps for MacOX, cuda for other OS
+  D_MODEL: 512
+  D_IN: 300 # dimension of word embedding or pre-trained language model
+  DROPOUT: 0.1
+  BATCH_SIZE: 32
+  TEXT_EMBEDDING:
+    ARCHITECTURE: VanillaEmbedding
+    WORD_EMBEDDING: PhoW2VSyllable300
+    WORD_EMBEDDING_CACHE: ".cache"
+    D_MODEL: 512
+    D_EMBEDDING: 300
+    DROPOUT: 0.1
+  SELF_ATTENTION:
+    ARCHITECTURE: ScaledDotProductAttention
+    HEAD: 8
+    D_MODEL: 512
+    D_KEY: 64
+    D_VALUE: 64
+    D_FF: 2048
+    D_FEATURE: 2048
+    USE_AOA: False
+    DROPOUT: 0.1
+  CROSS_ATTENTION:
+    ARCHITECTURE: ScaledDotProductAttention
+    HEAD: 8
+    D_MODEL: 512
+    D_KEY: 64
+    D_VALUE: 64
+    D_FF: 2048
+    D_FEATURE: 2048
+    USE_AOA: False
+    DROPOUT: 0.1
+  PPF:
+    D_MODEL: 512
+    D_FF: 2048
+    DROPOUT: 0.1
