@@ -12,13 +12,18 @@ from evaluation.evaluate import strict_accuracy
 
 from tqdm import tqdm
 import os
+from argparse import ArgumentParser
 
-config = get_config("configs/baseline.yaml")
-device = torch.device(config.DEVICE)
+parser = ArgumentParser()
+parser.add_argument("config", type=str, required=True)
+args = parser.parse_args()
+
+config = get_config(args.config)
+device = torch.device(config.MODEL.DEVICE)
 
 vocab = build_vocab(config.DATASET.VOCAB)
 
-train_dataset = build_dataset(config.JSON_PATH.TRAIN, vocab, config.DATASET)
+train_dataset = build_dataset(config.DATASET.JSON_PATH.TRAIN, vocab, config.DATASET)
 train_dataloader = DataLoader(
     dataset=train_dataset,
     batch_size=config.DATASET.BATCH_SIZE,
@@ -27,7 +32,7 @@ train_dataloader = DataLoader(
     collate_fn=collate_fn
 )
 
-dev_dataset = build_dataset(config.JSON_PATH.DEV, vocab, config.DATASET)
+dev_dataset = build_dataset(config.DATASET.JSON_PATH.DEV, vocab, config.DATASET)
 dev_dataloader = DataLoader(
     dataset=dev_dataset,
     batch_size=1,
@@ -37,7 +42,7 @@ dev_dataloader = DataLoader(
 )
 
 model = build_model(config.MODEL, vocab).to(device)
-optimizer = Adam(model.parameters(), lr=config.LR)
+optimizer = Adam(model.parameters(), lr=config.TRAINING.LR)
 loss_fn = nn.CrossEntropyLoss().to(device)
 
 epoch = 0

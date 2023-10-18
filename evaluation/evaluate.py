@@ -1,16 +1,5 @@
-import sys
-import os
 import re
 import unicodedata
-
-input_dir = sys.argv[1]
-output_dir = sys.argv[2]
-
-submit_dir = os.path.join(input_dir, 'res')
-truth_dir = os.path.join(input_dir, 'ref')
-
-if not os.path.isdir(submit_dir):
-    print("%s doesn't exist" % submit_dir)
 
 def preprocess_text(text: str) -> str:
     text = unicodedata.normalize("NFC", text)
