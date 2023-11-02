@@ -14,11 +14,12 @@ from tqdm import tqdm
 import os
 from argparse import ArgumentParser
 
-parser = ArgumentParser()
-parser.add_argument("--config", type=str, required=True)
-args = parser.parse_args()
+# Không dùng ArgumentParser mà trực tiếp gọi Config
+# parser = ArgumentParser()
+# parser.add_argument("--config", type=str, required=True)
+# args = parser.parse_args()
 
-config = get_config(args.config)
+config = get_config('configs/GLAICHEVE.yaml')
 device = torch.device(config.MODEL.DEVICE)
 
 vocab = build_vocab(config.DATASET.VOCAB)

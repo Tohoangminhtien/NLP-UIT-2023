@@ -15,12 +15,12 @@ DATASET:
     PAD_TOKEN: <pad>
     UNK_TOKEN: <unk>
     JSON_PATH:
-      TRAIN: annotations/refined-ise-dsc01-train.json
-      DEV: annotations/refined-ise-dsc01-dev.json
+      TRAIN: annotations/ise-dsc01-train.json
+      DEV: null
       TEST: null
   JSON_PATH:
-    TRAIN: annotations/refined-ise-dsc01-train.json
-    DEV: annotations/refined-ise-dsc01-dev.json
+    TRAIN: annotations/ise-dsc01-train.json
+    DEV: null
     TEST: null
 
 TRAINING:

@@ -65,10 +65,12 @@ class Vocab(object):
         self.freqs = Counter()
         self.max_sentence_length = 0
         self.max_context_sentences = 0
+        # Thêm vào để đếm tình hình tạo Vocab
+        number = 0
         for json_dir in json_dirs:
             if json_dir is None:
                 continue
-            json_data = json.load(open(json_dir))
+            json_data = json.load(open(json_dir, encoding= 'utf-8'))
             for id in json_data:
                 item = json_data[id]
                 context = item["context"]
@@ -78,6 +80,8 @@ class Vocab(object):
                 context_sentences = [preprocess_sentence(sentence) for sentence in context_sentences]
                 claim = item["claim"]
                 claim = preprocess_sentence(claim)
+                print(number)
+                number +=1
                 for sentence in context_sentences:
                     self.freqs.update(sentence)
                     if self.max_sentence_length < len(sentence) + 2: # extend the length for <bos> and <eos>
