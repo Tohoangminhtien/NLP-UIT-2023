@@ -8,7 +8,7 @@ from builders.model_builder import build_model
 from tqdm import tqdm
 
 
-# Dùng để test từng hàm một, hiểu rõ hơn về phương pháp thực hiện
+# Dùng để test từng hàm một, hiểu rõ hơn về phương pháp thực hiện bài toán
 config = get_config('configs/GLAICHEVE.yaml')
 device = torch.device(config.MODEL.DEVICE)
 
